@@ -8,20 +8,20 @@ const PORT = process.env.PORT || 3000;
 const db = require("./models");
 const app = express();
 
-app.post("/api/index", async (req, res) => {
-    const newAccount = await workout.create(req.body);
-    res.json(newAccount)
-});
+// app.post("/api/index", async (req, res) => {
+//     const newAccount = await workout.create(req.body);
+//     res.json(newAccount)
+// });
 
-app.post("/api/index/:id", async (req, res) => {
-    const result = await workout.findByIdAndUpdate(req.body);
+// app.post("/api/index/:id", async (req, res) => {
+//     const result = await workout.findByIdAndUpdate(req.body);
 
-    res.json(result)
-});
+//     res.json(result)
+// });
 
-app.get("/api/accounts", async (req, res) => {
-    const accounts = await 
-})
+// app.get("/api/accounts", async (req, res) => {
+//     const accounts = await 
+// })
 
 
 mongoose.connect(
