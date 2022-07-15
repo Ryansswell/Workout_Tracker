@@ -1,6 +1,7 @@
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
+const LegDayForm = document.querySelector(".LegDay-form");
 const cardioNameInput = document.querySelector("#cardio-name");
 const nameInput = document.querySelector("#name");
 const weightInput = document.querySelector("#weight");
@@ -8,6 +9,7 @@ const setsInput = document.querySelector("#sets");
 const repsInput = document.querySelector("#reps");
 const durationInput = document.querySelector("#duration");
 const resistanceDurationInput = document.querySelector("#resistance-duration");
+const LegDayDurationInput = document.querySelector("#LegDay-duration");
 const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
@@ -38,12 +40,19 @@ function handleWorkoutTypeChange(event) {
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
+    LegDayForm.classList.add("d-none");
   } else if (workoutType === "resistance") {
     resistanceForm.classList.remove("d-none");
     cardioForm.classList.add("d-none");
+    LegDayForm.classList.add("d-none");
+  } else if (workoutType === "LegDay") {
+    LegDayForm.classList.remove("d-none");
+    cardioForm.classList.add("d-none");
+    resistanceForm.classList.add("d-none");
   } else {
     cardioForm.classList.add("d-none");
     resistanceForm.classList.add("d-none");
+    LegDayForm.classList.add("d-none");
   }
 
   validateInputs();
@@ -84,6 +93,26 @@ function validateInputs() {
     if (distanceInput.value.trim() === "") {
       isValid = false;
     }
+  } else if (workoutType === "LegDay") {
+    if (nameInput.value.trim() === "") {
+      isValid = false;
+    }
+
+    if (weightInput.value.trim() === "") {
+      isValid = false;
+    }
+
+    if (setsInput.value.trim() === "") {
+      isValid = false;
+    }
+
+    if (repsInput.value.trim() === "") {
+      isValid = false;
+    }
+
+    if (LegDayDurationInput.value.trim() === "") {
+      isValid = false;
+    }
   }
 
   if (isValid) {
@@ -112,6 +141,13 @@ async function handleFormSubmit(event) {
     workoutData.sets = Number(setsInput.value.trim());
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
+  } else if (workoutType === "LegDay") {
+    workoutData.type = "LegDay";
+    workoutData.name = nameInput.value.trim();
+    workoutData.weight = Number(weightInput.value.trim());
+    workoutData.sets = Number(setsInput.value.trim());
+    workoutData.reps = Number(repsInput.value.trim());
+    workoutData.duration = Number(LegDayDurationInput.value.trim());
   }
 
   await API.addExercise(workoutData);
@@ -134,6 +170,7 @@ function clearInputs() {
   durationInput.value = "";
   repsInput.value = "";
   resistanceDurationInput.value = "";
+  LegDayDurationInput.value = "";
   weightInput.value = "";
 };
 
